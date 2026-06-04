@@ -1,0 +1,12 @@
+PROFESSIONAL SUMMARY
+Experienced React/Next.js Developer with a strong background in building scalable applications. 
+Passionate about clean code and performance optimization.
+
+SKILLS
+React, Next.js, TypeScript, Tailwind CSS, Redux
+
+EXPERIENCE
+Senior React/Next.js Developer - Tech Corp Inc.
+- Developed core features using React and Next.js.
+- Containerized applications and deployed scalable systems.
+- Reduced latency by 40% through efficient database queries and caching.

@@ -1,0 +1,473 @@
+@import "tailwindcss";
+
+/* ============================================================
+   EARTHY NOIR — Design System
+   A tactile, warm, premium dark theme.
+   ============================================================ */
+
+/* --- Tailwind v4 Theme Token Mapping --- */
+@theme inline {
+  /* Fonts */
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-geist);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-geist-mono);
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Color Tokens — mapped from CSS variables */
+  --color-bg-main: hsl(var(--bg-main));
+  --color-bg-surface: hsl(var(--bg-surface));
+  --color-bg-elevated: hsl(var(--bg-elevated));
+
+  --color-text-primary: hsl(var(--text-primary));
+  --color-text-muted: hsl(var(--text-muted));
+  --color-text-subtle: hsl(var(--text-subtle));
+
+  --color-accent: hsl(var(--accent-primary));
+  --color-accent-hover: hsl(var(--accent-hover));
+  --color-accent-muted: hsl(var(--accent-muted));
+  --color-accent-secondary: hsl(var(--accent-secondary));
+
+  --color-success: hsl(var(--state-success));
+  --color-success-bg: hsl(var(--state-success-bg));
+  --color-error: hsl(var(--state-error));
+  --color-error-bg: hsl(var(--state-error-bg));
+  --color-warning: hsl(var(--state-warning));
+
+  --color-border-subtle: hsl(var(--border-subtle));
+  --color-border-strong: hsl(var(--border-strong));
+  --color-input-bg: hsl(var(--input-bg));
+  --color-ring: hsl(var(--ring-color));
+}
+
+/* --- Earthy Noir Palette --- */
+:root {
+  /* BACKGROUNDS (Warm Darks) */
+  --bg-main: 28 6% 7%;           /* #131211 - Deepest warm charcoal */
+  --bg-surface: 28 6% 11%;       /* #1D1B1A - Elevated cards */
+  --bg-elevated: 28 6% 15%;      /* #272422 - Dropdowns, Modals */
+
+  /* FOREGROUNDS (Bone & Taupe) */
+  --text-primary: 40 15% 92%;    /* #EBE7E0 - Soft off-white/bone */
+  --text-muted: 30 5% 65%;       /* #A8A39D - Warm taupe */
+  --text-subtle: 30 5% 45%;      /* #75716D - Placeholders, meta-text */
+
+  /* ACCENTS (Terracotta & Sage) */
+  --accent-primary: 15 59% 49%;  /* #C55233 - Premium Rust/Terracotta */
+  --accent-hover: 15 59% 42%;    /* #A94326 - Darker Rust */
+  --accent-muted: 15 30% 25%;    /* #522F26 - Subtle accent backgrounds */
+  --accent-secondary: 45 40% 55%; /* #BA9B53 - Muted Ochre/Gold */
+
+  /* STATES */
+  --state-success: 130 25% 45%;  /* #558F61 - Muted Sage Green */
+  --state-success-bg: 130 20% 15%;
+  --state-error: 0 45% 50%;      /* #B84646 - Muted Crimson */
+  --state-error-bg: 0 40% 15%;
+  --state-warning: 35 60% 50%;   /* #CC8833 - Amber */
+
+  /* BORDERS & UI ELEMENTS */
+  --border-subtle: 28 5% 18%;    /* #2E2B29 - Standard card borders */
+  --border-strong: 28 5% 30%;    /* #4D4946 - Hover borders, dividers */
+  --input-bg: 28 6% 9%;          /* Slightly darker than surface */
+  --ring-color: 15 59% 49%;      /* Matches primary accent */
+
+  /* MOTION */
+  --ease-snappy: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+@layer base {
+  * {
+    border-color: hsl(var(--border-subtle));
+    outline-color: hsl(var(--ring-color) / 0.4);
+  }
+
+  body {
+    background-color: hsl(var(--bg-main));
+    color: hsl(var(--text-primary));
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Matte noise texture overlay via pseudo-element */
+    position: relative;
+  }
+
+  /* SVG Noise Grain Overlay — matte paper feel */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* Warm spotlight for landing page hero — applied via class */
+  .hero-spotlight {
+    background-image: radial-gradient(
+      ellipse 60% 40% at 50% 0%,
+      hsl(var(--accent-muted) / 0.15),
+      transparent 70%
+    );
+    background-attachment: fixed;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: hsl(var(--accent-primary) / 0.3);
+    color: #fff;
+  }
+
+  /* Headings — Professional typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: hsl(var(--text-primary));
+  }
+
+  h1 {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.08;
+  }
+
+  h2 {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    line-height: 1.3;
+  }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+@layer utilities {
+
+  /* --- Surface / Card --- */
+  .surface {
+    background-color: hsl(var(--bg-surface));
+    border: 1px solid hsl(var(--border-subtle));
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px hsl(0 0% 0% / 0.25);
+  }
+
+  .surface-hover {
+    transition:
+      border-color 0.2s var(--ease-snappy),
+      box-shadow 0.2s var(--ease-snappy),
+      background-color 0.2s var(--ease-snappy);
+  }
+  .surface-hover:hover {
+    border-color: hsl(var(--border-strong));
+    box-shadow: 0 15px 35px hsl(0 0% 0% / 0.35);
+    background-color: hsl(var(--accent-primary) / 0.02);
+  }
+
+  .elevated {
+    background-color: hsl(var(--bg-elevated));
+    border: 1px solid hsl(var(--border-subtle));
+    border-radius: 0.75rem;
+  }
+
+  /* --- Glass (Navbar) --- */
+  .glass-nav {
+    background-color: hsl(var(--bg-surface) / 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border-subtle));
+  }
+
+  /* --- Buttons — unified hover: brightness + shadow, active: brightness --- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: hsl(var(--accent-primary));
+    color: #fff;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    transition:
+      filter 0.2s var(--ease-snappy),
+      box-shadow 0.2s var(--ease-snappy);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 4px 14px hsl(var(--accent-primary) / 0.3);
+  }
+  .btn-primary:active {
+    filter: brightness(0.95);
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: none;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: hsl(var(--text-primary));
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border-subtle));
+    transition:
+      background-color 0.2s var(--ease-snappy),
+      border-color 0.2s var(--ease-snappy),
+      box-shadow 0.2s var(--ease-snappy);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    background-color: hsl(var(--border-subtle) / 0.5);
+    border-color: hsl(var(--border-strong));
+    box-shadow: 0 2px 8px hsl(0 0% 0% / 0.2);
+  }
+  .btn-secondary:active {
+    filter: brightness(0.95);
+  }
+
+  /* --- Form Inputs — refined focus states --- */
+  .input-field {
+    background-color: hsl(var(--input-bg));
+    border: 1px solid hsl(var(--border-subtle));
+    border-radius: 0.5rem;
+    color: hsl(var(--text-primary));
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+    font-size: 0.875rem;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
+    width: 100%;
+  }
+  .input-field::placeholder {
+    color: hsl(var(--text-subtle) / 0.7);
+  }
+  .input-field:focus {
+    outline: none;
+    border-width: 2px;
+    border-color: hsl(var(--accent-primary) / 0.8);
+    box-shadow: 0 0 0 3px hsl(var(--accent-primary) / 0.12);
+    background-color: hsl(var(--accent-primary) / 0.03);
+  }
+
+  /* --- Badges --- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s var(--ease-snappy);
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .badge-inactive {
+    background-color: hsl(var(--bg-elevated));
+    border-color: hsl(var(--border-subtle));
+    color: hsl(var(--text-muted));
+    transition: all 0.15s ease;
+  }
+  .badge-inactive:hover {
+    border-color: hsl(var(--border-strong));
+    color: hsl(var(--text-primary));
+    background-color: hsl(var(--accent-primary) / 0.08);
+  }
+
+  .badge-active {
+    background-color: hsl(var(--accent-muted));
+    color: hsl(var(--accent-primary));
+    border-color: hsl(var(--accent-primary) / 0.5);
+  }
+
+  /* --- Labels / Overline --- */
+  .label-overline {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: hsl(var(--text-subtle));
+  }
+
+  /* --- Pill Badge (Taglines) --- */
+  .pill-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid hsl(var(--border-subtle));
+    border-radius: 9999px;
+    color: hsl(var(--text-subtle));
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* --- Tab System --- */
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: hsl(var(--text-subtle));
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s var(--ease-snappy);
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .tab-btn:hover {
+    color: hsl(var(--text-primary));
+  }
+  .tab-btn-active {
+    color: hsl(var(--accent-primary));
+    border-bottom-color: hsl(var(--accent-primary));
+  }
+
+  /* --- Drawer Panel --- */
+  .drawer-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: hsl(var(--bg-surface));
+    border-left: 1px solid hsl(var(--border-subtle));
+    z-index: 50;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* --- Metric Numbers --- */
+  .metric-number {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Skeleton Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--bg-surface)) 0%,
+    hsl(var(--bg-elevated)) 40%,
+    hsl(var(--bg-surface)) 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+/* Shake (for form errors) */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s var(--ease-snappy) forwards;
+}
+
+/* Slide in from left (sidebar) */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.4s var(--ease-snappy) forwards;
+}
+
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-strong) / 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--border-strong) / 0.8);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border-strong) / 0.5) transparent;
+}

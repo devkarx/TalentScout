@@ -1,0 +1,12 @@
+PROFESSIONAL SUMMARY
+Experienced Python/Django Developer with a strong background in building scalable applications. 
+Passionate about clean code and performance optimization.
+
+SKILLS
+Python, Django, PostgreSQL, REST APIs, Celery
+
+EXPERIENCE
+Senior Python/Django Developer - Tech Corp Inc.
+- Developed core features using Python and Django.
+- Containerized applications and deployed scalable systems.
+- Reduced latency by 40% through efficient database queries and caching.

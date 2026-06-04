@@ -1,0 +1,12 @@
+PROFESSIONAL SUMMARY
+Experienced Java/Spring Boot Developer with a strong background in building scalable applications. 
+Passionate about clean code and performance optimization.
+
+SKILLS
+Java, Spring Boot, Microservices, SQL, Kafka
+
+EXPERIENCE
+Senior Java/Spring Boot Developer - Tech Corp Inc.
+- Developed core features using Java and Spring Boot.
+- Containerized applications and deployed scalable systems.
+- Reduced latency by 40% through efficient database queries and caching.
