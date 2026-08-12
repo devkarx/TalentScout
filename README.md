@@ -103,8 +103,8 @@ No keyword matching. No boolean filters. Just intelligent, semantic search over 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/devkarx/resume-trackerr.git
-cd resume-trackerr
+git clone https://github.com/devkarx/TalentScout.git
+cd TalentScout
 ```
 
 ### 2. Install dependencies
